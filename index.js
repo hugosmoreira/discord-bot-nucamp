@@ -14,7 +14,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`)
 })
 
-async function replyMsg(textQuery) {
+async function replyMsg() {
     // A unique identifier for the given session
     const projectId = process.env.PROJECT_ID;
     const sessionId = uuid.v4();
@@ -32,7 +32,7 @@ async function replyMsg(textQuery) {
       queryInput: {
         text: {
           // The query to send to the dialogflow agent
-          text: textQuery,
+          text: 'hello',
           // The language used by the client (en-US)
           languageCode: 'en-US',
         },
@@ -89,7 +89,5 @@ client.on('message', msg => {
 
     }
 })
-
-
 
   client.login(token)

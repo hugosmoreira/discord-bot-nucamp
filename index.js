@@ -14,6 +14,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`)
 })
 
+
 async function replyMsg() {
     // A unique identifier for the given session
     const projectId = process.env.PROJECT_ID;
@@ -32,7 +33,7 @@ async function replyMsg() {
       queryInput: {
         text: {
           // The query to send to the dialogflow agent
-          text: 'hello',
+          text: 'Hello',
           // The language used by the client (en-US)
           languageCode: 'en-US',
         },
@@ -89,5 +90,26 @@ client.on('message', msg => {
 
     }
 })
+/* Client when detects a message 
+then execute the code */
+client.on("message", async message =>{
+    if (message.content.startsWith("!ping"))
+    {
+      message.channel.send(`The client websocket latency is ${client.ws.ping}ms (values in milliseconds)`)
+    }
+  });
+/* Client when detects 
+a new member join */
+  client.on("guildMemberAdd", async member => {
+    let channel = member.guild.channels.cache.find(c => c.name === 'welcome')
+    let WELCOME = new Discord.MessageEmbed()
+    .setTitle('New User Has Joined!')
+    .setDescription(`Welcome To Our Server ${member.user} we are happy to have you! you are member number ${member.guild.memberCount}!`)
+    .setColor('BLUE')
+    .setThumbnail(client.user.avatarURL)
+    .setTimestamp()
+    .setFooter('Thanks For Joining!')
+    channel.send(WELCOME)
+  })
 
   client.login(token)
